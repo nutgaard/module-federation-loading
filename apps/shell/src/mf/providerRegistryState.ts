@@ -1,6 +1,6 @@
 import type { ProviderRegistration, ProviderStatusState } from "@mf-demo/contracts";
 
-import type { ProviderDefinition, ProviderId } from "./providers";
+import type { ProviderDefinition } from "./providers";
 
 export interface ProviderRuntimeEntry extends ProviderStatusState {
   attempts: number;
@@ -9,7 +9,7 @@ export interface ProviderRuntimeEntry extends ProviderStatusState {
 }
 
 export interface ProviderRegistryState {
-  providers: Record<ProviderId, ProviderRuntimeEntry>;
+  providers: Record<string, ProviderRuntimeEntry>;
   initialTotal: number;
 }
 
@@ -35,7 +35,7 @@ export type ProviderRegistryAction =
 export function createInitialProviderRegistryState(
   providers: ProviderDefinition[]
 ): ProviderRegistryState {
-  const records = {} as Record<ProviderId, ProviderRuntimeEntry>;
+  const records: Record<string, ProviderRuntimeEntry> = {};
   for (const provider of providers) {
     records[provider.id] = {
       providerId: provider.id,
@@ -128,9 +128,8 @@ export function getLoadedRegistrations(state: ProviderRegistryState): ProviderRe
     .map((entry) => entry.registration as ProviderRegistration);
 }
 
-export function getFailedProviderIds(state: ProviderRegistryState): ProviderId[] {
+export function getFailedProviderIds(state: ProviderRegistryState): string[] {
   return Object.values(state.providers)
     .filter((entry) => entry.status === "error")
-    .map((entry) => entry.providerId as ProviderId);
+    .map((entry) => entry.providerId);
 }
-

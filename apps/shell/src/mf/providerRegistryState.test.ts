@@ -1,7 +1,7 @@
 import type { ProviderRegistration } from "@mf-demo/contracts";
 import { describe, expect, it } from "vitest";
 
-import { providerDefinitions } from "./providers";
+import type { ProviderDefinition } from "./providers";
 import {
   computeInitialProgress,
   createInitialProviderRegistryState,
@@ -14,8 +14,29 @@ function Dummy() {
   return null;
 }
 
-const analyticsProvider = providerDefinitions[0];
-const commerceProvider = providerDefinitions[1];
+const providers: ProviderDefinition[] = [
+  {
+    id: "analytics",
+    displayName: "Analytics",
+    entry: "http://localhost:4171/mf-manifest.json",
+    remoteModule: "analytics/registration"
+  },
+  {
+    id: "commerce",
+    displayName: "Commerce",
+    entry: "http://localhost:4172/mf-manifest.json",
+    remoteModule: "commerce/registration"
+  },
+  {
+    id: "settings",
+    displayName: "Settings",
+    entry: "http://localhost:4173/mf-manifest.json",
+    remoteModule: "settings/registration"
+  }
+];
+
+const analyticsProvider = providers[0];
+const commerceProvider = providers[1];
 
 function registration(providerId: "analytics" | "commerce"): ProviderRegistration {
   return {
@@ -37,7 +58,7 @@ function registration(providerId: "analytics" | "commerce"): ProviderRegistratio
 
 describe("providerRegistryState", () => {
   it("tracks startup progress across success and error completions", () => {
-    let state = createInitialProviderRegistryState(providerDefinitions);
+    let state = createInitialProviderRegistryState(providers);
     expect(computeInitialProgress(state)).toMatchObject({ completed: 0, total: 3, percent: 0 });
 
     state = reduceProviderRegistryState(state, {
@@ -70,7 +91,7 @@ describe("providerRegistryState", () => {
   });
 
   it("collects loaded registrations and failed ids", () => {
-    let state = createInitialProviderRegistryState(providerDefinitions);
+    let state = createInitialProviderRegistryState(providers);
 
     state = reduceProviderRegistryState(state, {
       type: "attempt-success",
@@ -90,7 +111,7 @@ describe("providerRegistryState", () => {
   });
 
   it("supports error to recovery transitions", () => {
-    let state = createInitialProviderRegistryState(providerDefinitions);
+    let state = createInitialProviderRegistryState(providers);
 
     state = reduceProviderRegistryState(state, {
       type: "attempt-error",
@@ -98,14 +119,14 @@ describe("providerRegistryState", () => {
       errorMessage: "offline",
       at: 1
     });
-    expect(state.providers.analytics.status).toBe("error");
+    expect(state.providers["analytics"].status).toBe("error");
 
     state = reduceProviderRegistryState(state, {
       type: "attempt-start",
       provider: analyticsProvider,
       at: 2
     });
-    expect(state.providers.analytics.status).toBe("loading");
+    expect(state.providers["analytics"].status).toBe("loading");
 
     state = reduceProviderRegistryState(state, {
       type: "attempt-success",
@@ -113,7 +134,7 @@ describe("providerRegistryState", () => {
       registration: registration("analytics"),
       at: 3
     });
-    expect(state.providers.analytics.status).toBe("loaded");
-    expect(state.providers.analytics.errorMessage).toBeUndefined();
+    expect(state.providers["analytics"].status).toBe("loaded");
+    expect(state.providers["analytics"].errorMessage).toBeUndefined();
   });
 });

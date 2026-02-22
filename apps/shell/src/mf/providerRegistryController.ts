@@ -1,7 +1,8 @@
+import { registerRemotes } from "@module-federation/runtime";
 import type { ProviderRegistration } from "@mf-demo/contracts";
 
 import { loadProviderRegistrationFactory } from "./loadProvider";
-import { providerDefinitions, type ProviderDefinition, type ProviderId } from "./providers";
+import type { ProviderDefinition } from "./providers";
 import {
   createInitialProviderRegistryState,
   getFailedProviderIds,
@@ -18,7 +19,7 @@ export interface ProviderRegistryControllerOptions {
     provider: ProviderDefinition,
     error: Error,
     reason: ProviderLoadReason,
-    previousStatus: ProviderRegistryState["providers"][ProviderId]["status"]
+    previousStatus: ProviderRegistryState["providers"][string]["status"]
   ) => void;
   onRecovery?: (provider: ProviderDefinition, registration: ProviderRegistration) => void;
 }
@@ -28,14 +29,14 @@ type Listener = () => void;
 export class ProviderRegistryController {
   private state: ProviderRegistryState;
   private listeners = new Set<Listener>();
-  private readonly providersById: Record<ProviderId, ProviderDefinition>;
-  private readonly inFlight = new Set<ProviderId>();
+  private readonly providersById: Record<string, ProviderDefinition>;
+  private readonly inFlight = new Set<string>();
   private retryTimer: number | undefined;
   private started = false;
   private disposed = false;
 
   constructor(
-    private readonly providers: ProviderDefinition[] = providerDefinitions,
+    private readonly providers: ProviderDefinition[],
     private readonly options: ProviderRegistryControllerOptions = {}
   ) {
     this.state = createInitialProviderRegistryState(providers);
@@ -44,7 +45,7 @@ export class ProviderRegistryController {
         acc[provider.id] = provider;
         return acc;
       },
-      {} as Record<ProviderId, ProviderDefinition>
+      {} as Record<string, ProviderDefinition>
     );
   }
 
@@ -64,6 +65,16 @@ export class ProviderRegistryController {
       return;
     }
     this.started = true;
+    if (this.providers.length > 0) {
+      registerRemotes(
+        this.providers.map((provider) => ({
+          name: provider.id,
+          entry: provider.entry,
+          type: "module" as const
+        })),
+        { force: true }
+      );
+    }
     void this.loadInitialProviders();
     const retryIntervalMs = this.options.retryIntervalMs ?? 10_000;
     this.retryTimer = window.setInterval(() => {
@@ -89,6 +100,9 @@ export class ProviderRegistryController {
     await Promise.all(
       failedIds.map((providerId) => {
         const provider = this.providersById[providerId];
+        if (!provider) {
+          return Promise.resolve();
+        }
         return this.attemptLoadProvider(provider, "retry");
       })
     );
@@ -151,4 +165,3 @@ function normalizeError(error: unknown): Error {
   }
   return new Error(typeof error === "string" ? error : "Unknown provider load error");
 }
-

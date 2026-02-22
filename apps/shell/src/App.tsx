@@ -3,7 +3,11 @@ import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Link, Outlet, useRoutes } from "react-router-dom";
 
 import { LoadingBar } from "./components/LoadingBar";
-import { ProviderRegistryProvider, useProviderRegistrySnapshot } from "./mf/ProviderRegistryProvider";
+import {
+  ProviderRegistryProvider,
+  useProviderRegistryMeta,
+  useProviderRegistrySnapshot
+} from "./mf/ProviderRegistryProvider";
 import {
   computeInitialProgress as computeShellInitialProgress,
   getLoadedRegistrations
@@ -34,6 +38,7 @@ export function App() {
 }
 
 function RoutedShell() {
+  const { catalogLoading, catalogError } = useProviderRegistryMeta();
   const snapshot = useProviderRegistrySnapshot();
   const registrations = getLoadedRegistrations(snapshot);
   const menuNodes = buildCombinedMenu(registrations);
@@ -41,6 +46,13 @@ function RoutedShell() {
   const widgets = collectWidgets(registrations);
   const providerEntries = Object.values(snapshot.providers);
   const progress = computeShellInitialProgress(snapshot);
+  const progressPercent = catalogLoading ? 10 : progress.percent;
+  const showLoadingBar = catalogLoading || !progress.isComplete;
+  const progressLabel = catalogLoading
+    ? "Loading provider catalog..."
+    : catalogError
+      ? `Provider catalog error (${progress.completed}/${progress.total} providers attempted)`
+      : `Loading provider modules (${progress.completed}/${progress.total})`;
 
   const routes = [
     {
@@ -48,9 +60,9 @@ function RoutedShell() {
       element: (
         <ShellLayout
           menuNodes={menuNodes}
-          progressPercent={progress.percent}
-          progressLabel={`Loading provider modules (${progress.completed}/${progress.total})`}
-          showLoadingBar={!progress.isComplete}
+          progressPercent={progressPercent}
+          progressLabel={progressLabel}
+          showLoadingBar={showLoadingBar}
         />
       ),
       children: [

@@ -19,23 +19,8 @@ export default defineConfig({
     react(),
     federation({
       name: "shell",
-      remotes: {
-        analytics: {
-          name: "analytics",
-          type: "module",
-          entry: "http://localhost:4171/mf-manifest.json"
-        },
-        commerce: {
-          name: "commerce",
-          type: "module",
-          entry: "http://localhost:4172/mf-manifest.json"
-        },
-        settings: {
-          name: "settings",
-          type: "module",
-          entry: "http://localhost:4173/mf-manifest.json"
-        }
-      },
+      shareStrategy: "loaded-first",
+      remotes: {},
       runtimePlugins: ["./src/mf/retryRuntimePlugin.ts"],
       shared: ["react", "react-dom", "react-router-dom"],
       dts: false

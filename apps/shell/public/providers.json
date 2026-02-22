@@ -1,0 +1,20 @@
+{
+  "providers": [
+    {
+      "id": "analytics",
+      "displayName": "Analytics",
+      "entry": "http://localhost:4171/mf-manifest.json"
+    },
+    {
+      "id": "commerce",
+      "displayName": "Commerce",
+      "entry": "http://localhost:4172/mf-manifest.json"
+    },
+    {
+      "id": "settings",
+      "displayName": "Settings",
+      "entry": "http://localhost:4173/mf-manifest.json"
+    }
+  ]
+}
+

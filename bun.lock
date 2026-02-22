@@ -64,6 +64,7 @@
       "dependencies": {
         "@mf-demo/contracts": "workspace:*",
         "@module-federation/retry-plugin": "^0.21.5",
+        "@module-federation/runtime": "^0.21.6",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-hot-toast": "^2.5.1",
