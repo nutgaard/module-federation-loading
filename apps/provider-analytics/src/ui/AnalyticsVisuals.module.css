@@ -1,0 +1,204 @@
+:global(:root) {
+  --accent-a: #38bdf8;
+  --accent-b: #a78bfa;
+  --accent-c: #34d399;
+  --accent-d: #f59e0b;
+}
+
+.stack {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.metricCard {
+  border-radius: 12px;
+  padding: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(2, 6, 23, 0.35);
+  display: grid;
+  gap: 0.15rem;
+}
+
+.metricLabel {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+}
+
+.metricValue {
+  font-size: 1.1rem;
+}
+
+.metricDelta {
+  color: #86efac;
+  font-size: 0.8rem;
+}
+
+.metricDeltaMuted {
+  color: #fdba74;
+  font-size: 0.8rem;
+}
+
+.card {
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(2, 6, 23, 0.35);
+  padding: 0.8rem;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+}
+
+.cardHeader h3 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.cardHeader span {
+  color: #94a3b8;
+  font-size: 0.78rem;
+}
+
+.bars {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.barRow {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.barLabel {
+  display: flex;
+  justify-content: space-between;
+  color: #cbd5e1;
+  font-size: 0.8rem;
+}
+
+.barTrack {
+  height: 8px;
+  background: rgba(148, 163, 184, 0.16);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: inherit;
+}
+
+.funnel {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.funnelRow {
+  display: grid;
+  grid-template-columns: minmax(120px, 160px) 1fr auto;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.funnelMeta {
+  display: grid;
+  gap: 0.05rem;
+}
+
+.funnelMeta strong {
+  font-size: 0.84rem;
+}
+
+.funnelMeta span {
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
+
+.funnelTrack {
+  height: 10px;
+  background: rgba(148, 163, 184, 0.16);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.funnelFill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #22d3ee, #818cf8);
+}
+
+.funnelPercent {
+  color: #e2e8f0;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.widget {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.widgetTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.widgetLabel {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
+
+.widgetValue {
+  margin: 0.15rem 0 0;
+  font-size: 1.2rem;
+}
+
+.pill {
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  background: rgba(34, 197, 94, 0.14);
+  color: #bbf7d0;
+  border-radius: 999px;
+  padding: 0.25rem 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.sparkline {
+  height: 72px;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: end;
+  gap: 0.2rem;
+}
+
+.sparkline span {
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(180deg, #38bdf8, #0ea5e9);
+  min-width: 8px;
+  opacity: 0.9;
+}
+
+@media (max-width: 680px) {
+  .metricGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .funnelRow {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+}
+

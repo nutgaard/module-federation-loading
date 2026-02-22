@@ -1,0 +1,266 @@
+.stack {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.summaryRow {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.summaryCard {
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(2, 6, 23, 0.35);
+  padding: 0.7rem;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.summaryCard span {
+  color: #cbd5e1;
+  font-size: 0.78rem;
+}
+
+.summaryCard strong {
+  font-size: 1.1rem;
+}
+
+.summaryCard em {
+  font-style: normal;
+  font-size: 0.8rem;
+}
+
+.goodText {
+  color: #86efac;
+}
+
+.warnText {
+  color: #fcd34d;
+}
+
+.tableCard {
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(2, 6, 23, 0.35);
+  padding: 0.8rem;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.tableHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tableHeader h3 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.tableHeader span {
+  color: #9ca3af;
+  font-size: 0.78rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 0.45rem 0.35rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.table th {
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+.tag {
+  display: inline-block;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid transparent;
+}
+
+.picking {
+  color: #fde68a;
+  background: rgba(234, 179, 8, 0.14);
+  border-color: rgba(234, 179, 8, 0.3);
+}
+
+.packed {
+  color: #bfdbfe;
+  background: rgba(59, 130, 246, 0.14);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.blocked {
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.14);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.shipped {
+  color: #bbf7d0;
+  background: rgba(34, 197, 94, 0.14);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.checkGrid {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.checkCard {
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: rgba(15, 23, 42, 0.5);
+  padding: 0.6rem;
+}
+
+.checkTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.checkTop strong {
+  font-size: 0.8rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.okDot {
+  background: #22c55e;
+}
+
+.warnDot {
+  background: #f59e0b;
+}
+
+.dangerDot {
+  background: #ef4444;
+}
+
+.checkValue {
+  margin-top: 0.4rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.progressList {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.progressRow {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.progressMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  color: #e5e7eb;
+  font-size: 0.8rem;
+}
+
+.progressTrack {
+  height: 8px;
+  background: rgba(148, 163, 184, 0.14);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #fb7185, #f59e0b);
+}
+
+.widget {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.widgetHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.widgetHeader p {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 0.75rem;
+}
+
+.widgetHeader h4 {
+  margin: 0.15rem 0 0;
+  font-size: 1.2rem;
+}
+
+.revenueBadge {
+  border-radius: 999px;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  background: rgba(251, 191, 36, 0.14);
+  color: #fde68a;
+  padding: 0.22rem 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.minichart {
+  height: 72px;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.22rem;
+  align-items: end;
+}
+
+.minichart span {
+  min-width: 10px;
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(180deg, #f59e0b, #ef4444);
+}
+
+.widgetFooter {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.75rem;
+  color: #d1d5db;
+  font-size: 0.78rem;
+}
+
+@media (max-width: 700px) {
+  .summaryRow,
+  .checkGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
